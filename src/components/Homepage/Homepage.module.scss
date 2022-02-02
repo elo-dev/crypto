@@ -1,0 +1,16 @@
+.home_heading_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.show_more{
+  margin-top: 0px !important;
+}
+
+@media screen and (max-width: 500px){
+  .heading{
+      margin-top: 20px;
+  }
+}
