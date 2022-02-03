@@ -1,0 +1,33 @@
+.news_card {
+  min-height: 300px !important;
+  p {
+    color: black;
+    margin: 10px 0px !important;
+  }
+}
+
+.news_image_container {
+  display: flex !important;
+  justify-content: space-between !important;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.news_title {
+  width: 70%;
+}
+
+.provider_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.provider_name {
+  margin-left: 10px;
+}
+
+.select_news {
+  width: 180px;
+}
