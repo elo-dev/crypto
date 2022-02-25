@@ -3,12 +3,12 @@ import {
   useGetCryptoExchangesListQuery,
   useGetCryptoExchangeRateQuery,
 } from '../../services/cryptoExchangesApi'
-import { Row, Col, Select, Typography } from 'antd'
+import { Row, Col, Select, Typography, Input } from 'antd'
 
 import style from './Exchange.module.scss'
 
 const { Option } = Select
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const Exchanges = () => {
   const [currencies, setCurrencies] = useState()
@@ -16,6 +16,7 @@ const Exchanges = () => {
 
   const [inputCurrencies, setInputCurrencies] = useState()
   const [inputCryptocurrencies, setInputCryptocurrencies] = useState()
+  const [inputAmountCrypto, setInputAmountCrypto] = useState(1)
 
   useEffect(() => {
     if (inputCurrencies && inputCryptocurrencies) {
@@ -61,11 +62,14 @@ const Exchanges = () => {
 
   return (
     <div className={style.exchange}>
-      <Row>
-        <Col>
+      <Col className={style.exchange_heading_container}>
+        <Title level={2}>Buy cryptocurrency</Title>
+      </Col>
+      <div className={style.exchange_body_wrapper}>
+        <Col className={style.exchange_column}>
           <Select
             className={style.select}
-            placeholder="Select currencies"
+            placeholder="Select currency"
             onChange={(value) => setInputCurrencies(value)}
           >
             {worldCurrencies?.map((currencies) => (
@@ -76,7 +80,7 @@ const Exchanges = () => {
           </Select>
           <Select
             className={style.select}
-            placeholder="Select cryptocurrencies"
+            placeholder="Select cryptocurrency"
             onChange={(value) => setInputCryptocurrencies(value)}
           >
             {crypto?.map((crypto) => (
@@ -85,9 +89,18 @@ const Exchanges = () => {
               </Option>
             ))}
           </Select>
-          <Text className={style.cryptoRate}>= {rate ? rate.basic : 0}</Text>
+          <Input
+            type="number"
+            defaultValue={1}
+            placeholder="Amount cryptocurrency"
+            className={style.input}
+            onChange={(e) => setInputAmountCrypto(e.target.value)}
+          />
+          <Text className={style.cryptoRate}>
+            = {rate ? inputAmountCrypto * rate.basic : 0}
+          </Text>
         </Col>
-      </Row>
+      </div>
     </div>
   )
 }

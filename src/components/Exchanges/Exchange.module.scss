@@ -1,15 +1,51 @@
-.exchange{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.exchange {
   height: calc(100vh - 134px);
 }
 
-.select{
-  width: 200px;
+.select {
+  width: 200px !important;
   margin-right: 15px !important;
 }
 
-.cryptoRate{
+.input {
+  width: 200px !important;
+}
+
+.cryptoRate {
   font-size: 20px;
+}
+
+.exchange_column {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.exchange_heading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .exchange_column,
+  .select,
+  .input {
+    display: block;
+  }
+
+  .select,
+  .input {
+    margin-bottom: 15px;
+  }
+
+  .exchange_body_wrapper{
+    display: flex;
+    justify-content: center;
+  }
 }
