@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/crypto/">
       <Provider store={store}>
         <App />
       </Provider>
