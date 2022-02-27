@@ -3,7 +3,8 @@ import {
   useGetCryptoExchangesListQuery,
   useGetCryptoExchangeRateQuery,
 } from '../../services/cryptoExchangesApi'
-import { Row, Col, Select, Typography, Input } from 'antd'
+import { Col, Select, Typography, Input, Row } from 'antd'
+import { SwapOutlined } from '@ant-design/icons'
 
 import style from './Exchange.module.scss'
 
@@ -17,6 +18,8 @@ const Exchanges = () => {
   const [inputCurrencies, setInputCurrencies] = useState()
   const [inputCryptocurrencies, setInputCryptocurrencies] = useState()
   const [inputAmountCrypto, setInputAmountCrypto] = useState(1)
+
+  const [reverseRate, setReverseRate] = useState(false)
 
   useEffect(() => {
     if (inputCurrencies && inputCryptocurrencies) {
@@ -60,15 +63,23 @@ const Exchanges = () => {
 
   if (isLoadingList) return 'Loading...'
 
+  const handleClick = () => {
+    setReverseRate((prevState) => !prevState)
+  }
+
   return (
     <div className={style.exchange}>
       <Col className={style.exchange_heading_container}>
-        <Title level={2}>Buy cryptocurrency</Title>
+        {reverseRate ? (
+          <Title level={2}>Sell cryptocurrency</Title>
+        ) : (
+          <Title level={2}>Buy cryptocurrency</Title>
+        )}
       </Col>
-      <div className={style.exchange_body_wrapper}>
-        <Col className={style.exchange_column}>
+      <Row className={style.exchange_row}>
+        <Col className={style.exchange_col}>
           <Select
-            className={style.select}
+            className={style.selectCurrency}
             placeholder="Select currency"
             onChange={(value) => setInputCurrencies(value)}
           >
@@ -79,7 +90,7 @@ const Exchanges = () => {
             ))}
           </Select>
           <Select
-            className={style.select}
+            className={style.selectCryptocurrency}
             placeholder="Select cryptocurrency"
             onChange={(value) => setInputCryptocurrencies(value)}
           >
@@ -89,18 +100,29 @@ const Exchanges = () => {
               </Option>
             ))}
           </Select>
-          <Input
-            type="number"
-            defaultValue={1}
-            placeholder="Amount cryptocurrency"
-            className={style.input}
-            onChange={(e) => setInputAmountCrypto(e.target.value)}
-          />
-          <Text className={style.cryptoRate}>
-            = {rate ? inputAmountCrypto * rate.basic : 0}
-          </Text>
+          <div className={style.inputWrapper}>
+            <Input
+              type="number"
+              defaultValue={1}
+              placeholder="Amount"
+              className={style.input}
+              onChange={(e) => setInputAmountCrypto(e.target.value)}
+            />
+          </div>
+          {reverseRate ? (
+            <Text className={style.cryptoRate}>
+              = {rate ? inputAmountCrypto * rate.reverse : 0}
+            </Text>
+          ) : (
+            <Text className={style.cryptoRate}>
+              = {rate ? inputAmountCrypto * rate.basic : 0}
+            </Text>
+          )}
         </Col>
-      </div>
+      </Row>
+      <Row className={style.exchange_row}>
+        <SwapOutlined className={style.swapIcon} onClick={handleClick} />
+      </Row>
     </div>
   )
 }
